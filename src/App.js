@@ -4,8 +4,7 @@ import logo from './logo.svg';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
-
-// import RenderQuestion from './components/RenderQuestion';
+import Question from './components/Question';
 
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
             <Route path="/" component={Home} exact/>
             <Route path="/Login" component={Login}/>
             <Route path="/Register" component={Register}/>
-            {/* <Route path="/Questions" component={RenderQuestion}/> */}
+            <Route path="/Questions" component={Question}/>
             {/* <Route component={Error}/> */}
           </Switch>
         </div> 

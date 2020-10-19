@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
+
+.card-container {
+  perspective: 700px;
+  -webkit-perspective: 700px;
+  margin: 30px auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card-flip, .card-container {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: all 0.7s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .card-flip div {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform-style: preserve-3d;
   }
+
+.back {
+  transform: rotateY(-180deg);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.flip {
+  transform: rotateY(180deg);
+}
+
+.card-flip {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  grid-template-areas: "frontAndBack";
+  transform-style: preserve-3d;
+  transition: all 0.7s ease;
+}
+
+.card {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  padding: 20px 30px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+  .add-form {
+      width: 35%;
+  }
+
+.front {
+  grid-area: frontAndBack;
+}
+
+.back {
+  grid-area: frontAndBack;
+  transform: rotateY(-180deg);
+}
+
+.card-container {
+  display: grid;
+  perspective: 700px;
+}
+
+.body-container > table {
+  background-color: rgba(0, 0, 0, 0.65);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.click-flip-explanation{
+  font-size: 12px;
+  margin: 0 auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.new-question{
+  margin-bottom: 30px;
 }
