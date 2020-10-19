@@ -33,7 +33,9 @@ class Login extends React.Component{
     super(props);
     this.state = {
       username : "",
-      password : ""
+      password : "",
+      errorMessage: "",
+      persistent: false
     }
   }
 
@@ -49,7 +51,8 @@ class Login extends React.Component{
 
     var signIn = {
       username : this.state.username,
-      password : this.state.password
+      password : this.state.password,
+      persistent : this.state.persistent
     }
     fetch("https://interviewprepapp.azurewebsites.net/api/Account/Login", {
       method: "POST",
@@ -67,6 +70,10 @@ class Login extends React.Component{
         localStorage.setItem('token', result.jwt);
         localStorage.setItem('role', result.role);
         this.props.history.push("/")
+      }else{
+        this.setState((state) => {
+          return {errorMessage : "Invalid username or password"};
+        })
       }
     })
   }
@@ -83,6 +90,12 @@ class Login extends React.Component{
     })
   }
 
+  setPersistence(persistence){
+    this.setState((state) => {
+      return {persistent : persistence};
+    })
+  }
+
   render(){
     const classes = this.props;
 
@@ -93,7 +106,8 @@ class Login extends React.Component{
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={e => this.submitLogin(e)} noValidate>
+            <div>{this.state.errorMessage}</div>
             <TextField
               variant="outlined"
               margin="normal"
@@ -119,7 +133,7 @@ class Login extends React.Component{
               autoComplete="current-password"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" onChange={e => this.setPersistence(e.target.checked)} color="primary" checked={this.state.persistent} />}
               label="Remember me"
             />
             <Button
@@ -141,22 +155,6 @@ class Login extends React.Component{
           </form>
         </div>
       </Container>
-        // <div style={{padding: "60px 0"}}>
-        //   <form onSubmit={this.submitLogin} style={{margin: "0 auto", maxWidth: "320px"}} >
-        //     <FormGroup controlId="username" bsSize="large">
-        //       <FormLabel>Username</FormLabel>
-        //       <FormControl autoFocus value={this.state.username} onChange={e => this.setUsername(e.target.value)} />
-        //     </FormGroup>
-        //     <FormGroup controlId="password" bsSize="large">
-        //       <FormLabel>Password</FormLabel>
-        //       <FormControl value={this.state.password} onChange={e => this.setPassword(e.target.value)} type="password"
-        //       />
-        //     </FormGroup>
-        //     <Button block bsSize="large" disabled={!this.validateLogin()} type="submit">
-        //       Login
-        //     </Button>
-        //   </form>
-        // </div>
       )
   }
 }

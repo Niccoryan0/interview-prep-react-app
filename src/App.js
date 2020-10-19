@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import Home from './components/Home';
 import Login from './components/Login';
-import Question from './components/RenderQuestion';
+import Register from './components/Register';
+
+// import RenderQuestion from './components/RenderQuestion';
 
 
 function App() {
@@ -13,7 +15,8 @@ function App() {
           <Switch>
             <Route path="/" component={Home} exact/>
             <Route path="/Login" component={Login}/>
-            <Route path="/Questions" component={Question}/>
+            <Route path="/Register" component={Register}/>
+            {/* <Route path="/Questions" component={RenderQuestion}/> */}
             {/* <Route component={Error}/> */}
           </Switch>
         </div> 

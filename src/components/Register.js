@@ -1,13 +1,40 @@
-import React, {useState} from "react";
-import {Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
-export default class Login extends React.Component{
+const styles = (theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
+
+class Login extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       username : "",
       password : "",
-      confirmPassword: ""
+      confirmPassword: "",
+      errorMessage : "",
+      persistent: false
     }
   }
 
@@ -17,8 +44,8 @@ export default class Login extends React.Component{
     return this.state.username.length > 0 && this.state.password.length > 0;
   }
 
-  matchPasswords = () => {
-
+  validateConfirmPassword = () => {
+    return this.state.password === this.state.confirmPassword;
   }
 
   submitLogin = (e) => {
@@ -27,9 +54,10 @@ export default class Login extends React.Component{
 
     var signIn = {
       username : this.state.username,
-      password : this.state.password
+      password : this.state.password,
+      persistent : this.state.persistent
     }
-    fetch("https://interviewprepapp.azurewebsites.net/api/Account/Login", {
+    fetch("https://interviewprepapp.azurewebsites.net/api/Account/Register", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -43,8 +71,17 @@ export default class Login extends React.Component{
     .then(result => {
       if(result.jwt) {
         localStorage.setItem('token', result.jwt);
-        localStorage.setItem('role', result.role);
+        localStorage.setItem('role', '');
         this.props.history.push("/")
+      }else{
+        let msg = "";
+        result.forEach(error => {
+          console.log(error.code)
+          msg += `${error.description}\n`
+        });
+        this.setState((state) => {
+          return {errorMessage : msg};
+        });
       }
     })
   }
@@ -66,31 +103,87 @@ export default class Login extends React.Component{
       return {confirmPassword : password};
     })
   }
+  setPersistence(persistence){
+    this.setState((state) => {
+      return {persistent : persistence};
+    })
+  }
 
   render(){
+    const classes = this.props;
+
       return(
-        <div style={{padding: "60px 0"}}>
-          <form onSubmit={this.submitLogin} style={{margin: "0 auto", maxWidth: "320px"}} >
-            <FormGroup controlId="username" bsSize="large">
-              <FormLabel>Username</FormLabel>
-              <FormControl autoFocus value={this.state.username} onChange={e => this.setUsername(e.target.value)} />
-              <div className="text-danger">{this.state.errors.name}</div>
-            </FormGroup>
-            <FormGroup controlId="password" bsSize="large">
-              <FormLabel>Password</FormLabel>
-              <FormControl value={this.state.password} onChange={e => this.setPassword(e.target.value)} type="password"
-              />
-            </FormGroup>
-            <FormGroup controlId="password" bsSize="large">
-              <FormLabel>Password</FormLabel>
-              <FormControl value={this.state.password} onChange={e => this.setPassword(e.target.value)} type="password"
-              />
-            </FormGroup>
-            <Button block bsSize="large" disabled={!this.validateLogin() } type="submit">
-              Login
+        <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} onSubmit={e => this.submitLogin(e)} noValidate>
+            <div>{this.state.errorMessage}</div>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              onChange={e => this.setUsername(e.target.value)}
+              autoComplete="username"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              onChange={e => this.setPassword(e.target.value)}
+              autoComplete="current-password"
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
+              helperText={this.validateConfirmPassword() ? '' : 'Passwords do not match'}
+              onChange={e => this.setConfirmPassword(e.target.value)}
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" onChange={e => this.setPersistence(e.target.checked)} color="primary" checked={this.state.persistent} />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              disabled={!this.validateLogin() || !this.validateConfirmPassword()}
+              className={classes.submit}
+            >
+              Sign In
             </Button>
+            <Grid container>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
           </form>
         </div>
+      </Container>
       )
   }
 }
+
+export default withStyles(styles)(Login);
