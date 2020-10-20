@@ -1,8 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import { styled } from '@material-ui/styles';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
+
+const MyButton = styled(Button)({
+  background: 'linear-gradient(45deg, #bdc3c7 10%, #2c3e50 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  color: 'white',
+  padding: '3px 5px',
+});
 
 export default class Home extends React.Component{ 
 
@@ -15,26 +25,19 @@ export default class Home extends React.Component{
   
         <main className="text-center card home-body">
           <h3 className="display-6">Choose a type of question below</h3>
-          <Link to={{pathname:"/Questions", state: {questionType: "technical"}}} tabIndex="-1">
-            <Button>
-              Technical
-            </Button>
-          </Link>
-          <Link to={{pathname:"/Questions", state: {questionType: "behavioral"}}}>            
-            <Button>
-              Behavioral
-            </Button>
-          </Link>
-          <Link to={{pathname:"/Questions", state: {questionType: "whiteboard"}}}>            
-            <Button>
-              Whiteboard
-            </Button>
-          </Link>
-          <Link to={{pathname:"/Questions", state: {questionType: "traversal"}}}>  
-            <Button>
-                Traversal
-            </Button>
-          </Link>
+          <MyButton variant="contained" color='secondary'  to={{pathname:"/Questions", state: {questionType: "technical"}}} component={Link}>
+            Technical
+          </MyButton>
+          <MyButton variant="contained" color='secondary'  to={{pathname:"/Questions", state: {questionType: "behavioral"}}} component={Link}>
+            Behavioral
+          </MyButton>
+          <MyButton variant="contained" color='secondary' component={Link} to={{pathname:"/Questions", state: {questionType: "whiteboard"}}}>
+            Whiteboard
+          </MyButton>
+          <MyButton variant="contained" color='secondary'  to={{pathname:"/Questions", state: {questionType: "traversals"}}} component={Link}>
+            Traversals
+          </MyButton>
+          {/* </Link> */}
           {/* <a asp-page="/Questions/Technical" className="btn btn-dark">Technical</a>
           <a asp-page="/Questions/Behavioral" className="btn btn-dark">Behavioral</a>
           <a asp-page="/Questions/Whiteboard" className="btn btn-dark">Whiteboard</a>
