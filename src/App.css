@@ -1,3 +1,22 @@
+.all-container {
+  width: 100% !important;
+  min-height: 100%;
+  position: relative;
+}
+
+.body-container {
+  margin: 0 30px;
+}
+
+footer > a {
+  color: white;
+  transition: 0.3s;
+}
+
+  footer > a:hover {
+      color: gray;
+  }
+
 
 .card-container {
   perspective: 700px;
@@ -65,11 +84,52 @@
   color: white;
 }
 
+.dash-link {
+  margin-right: 40px;
+}
+
+h1 {
+  margin: 20px 0;
+}
+
+table {
+  padding: 10px 20px;
+}
+
 .click-flip-explanation{
   font-size: 12px;
   margin: 0 auto;
 }
 
+.home-header, .home-body{
+  background-color: rgba(0, 0, 0, 0.6);
+  min-width:250px;
+  border-radius: 4px;
+  padding: 10px 6px;
+  margin: 4% auto;
+}
+
+.home-header {
+  width: 250px;
+}
+
+.home-body {
+  min-width: 250px;
+  max-width: 525px;
+}
+
+.home-body > h3:first-child {
+  margin-bottom: 18px;
+}
+
+.home-body > a {
+  margin-bottom: 18px;
+}
+
 .new-question{
   margin-bottom: 30px;
+}
+
+.register {
+  max-width: 500px;
 }

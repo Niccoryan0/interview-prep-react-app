@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -14,7 +15,12 @@ export default class Home extends React.Component{
   
         <main className="text-center card home-body">
           <h3 className="display-6">Choose a type of question below</h3>
-          <Link to={{pathname:"/Questions", state: {questionType: "technical"}}}>Technical</Link>
+          <Link to={{pathname:"/Questions", state: {questionType: "technical"}}} tabIndex="-1">
+            <Button>
+
+              Technical
+            </Button>
+          </Link>
           <Link to={{pathname:"/Questions", state: {questionType: "behavioral"}}}>Behavioral</Link>
           <Link to={{pathname:"/Questions", state: {questionType: "whiteboard"}}}>Whiteboard</Link>
           <Link to={{pathname:"/Questions", state: {questionType: "traversal"}}}>Traversal</Link>
