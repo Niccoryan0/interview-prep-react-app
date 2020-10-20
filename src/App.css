@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.navSelected{
+  color:whitesmoke;
+}
+
 .body-container {
   margin: 0 30px;
 }

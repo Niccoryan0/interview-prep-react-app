@@ -1,10 +1,8 @@
-import React from "react";
-import Navbar from 'react-bootstrap/Navbar'
-import { Nav, NavItem, NavDropdown, Button } from 'react-bootstrap'
-import ReactRouterBootstrap, { LinkContainer } from 'react-router-bootstrap';
-
-import { AppBar, Typography, IconButton, Toolbar } from '@material-ui/core';
-
+import React from 'react';
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+// import { IndexLinkContainer } from 'react-router-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class NavBar extends React.Component{
 
@@ -13,24 +11,19 @@ export default class NavBar extends React.Component{
   // }
 
   render(){
+    
     return(
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Interview Prep</Navbar.Brand>
         <Nav className="mr-auto">
-          <LinkContainer to={{pathname:"/Questions", state: {questionType: "technical"}}}>
-            <NavItem>
-              <Button>Technical
-                </Button>
-            </NavItem>
-          </LinkContainer>
-          <LinkContainer to={{pathname:"/Questions", state: {questionType: "behavioral"}}}><NavItem>Behavioral</NavItem></LinkContainer>
-          <LinkContainer to={{pathname:"/Questions", state: {questionType: "whiteboard"}}}><NavItem>Whiteboard</NavItem></LinkContainer>
-          <LinkContainer to={{pathname:"/Questions", state: {questionType: "traversals"}}}><NavItem>Traversals</NavItem></LinkContainer>
+          <Nav.Link activeClassName="navSelected" as={NavLink} to={{pathname:"/Questions", key: uuidv4(), state: {questionType: "technical"}}}>Technical</Nav.Link>
+          <Nav.Link activeClassName="navSelected" as={NavLink} to={{pathname:"/Questions", key: uuidv4(), state: {questionType: "behavioral"}}}>Behavioral</Nav.Link>
+          <Nav.Link activeClassName="navSelected" as={NavLink} to={{pathname:"/Questions", key: uuidv4(), state: {questionType: "whiteboard"}}}>Whiteboard</Nav.Link>
+          <Nav.Link activeClassName="navSelected" as={NavLink} to={{pathname:"/Questions", key: uuidv4(), state: {questionType: "traversals"}}}>Traversals</Nav.Link>
+          <NavDropdown>
+
+          </NavDropdown>
         </Nav>
-        {/* <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-info">Search</Button>
-        </Form> */}
       </Navbar>
     )
   }

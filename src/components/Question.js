@@ -4,10 +4,12 @@ class Question extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      allQuestion : [],
       question : "",
       answer : "",
       category : "",
-      flipped : false
+      flipped : false,
+      questionType: this.props.location.state.questionType
     }
     this.flipCard = this.flipCard.bind(this);
     this.getTopQuestion = this.getTopQuestion.bind(this)
@@ -15,9 +17,7 @@ class Question extends React.Component {
   }
 
   getQuestion(){
-    
     let url = 'https://interviewprepapp.azurewebsites.net/api/' + this.props.location.state.questionType;
-    console.log(url);
     fetch(url, {
       method: "GET",
       headers: {
@@ -28,32 +28,30 @@ class Question extends React.Component {
     }).then(res => res.json())
     .then(questions => {
       if(questions){
-        this.setState((state) => {
-          return {allQuestions : questions}
-        })
+        this.shuffleQuestions(questions);
       }
-      console.log(this.state.allQuestions);
-      this.shuffleQuestions();
       this.getTopQuestion();
     })
   }
 
-  shuffleQuestions(){
+  shuffleQuestions(tempArr){
     // Adapted from : https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-    var currentIndex = this.state.allQuestions.length, temporaryValue, randomIndex;
+    var currentIndex = tempArr.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
 
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
   
-      temporaryValue = this.state.allQuestions[currentIndex];
-      this.state.allQuestions[currentIndex] = this.state.allQuestions[randomIndex];
-      this.state.allQuestions[randomIndex] = temporaryValue;
+      temporaryValue = tempArr[currentIndex];
+      tempArr[currentIndex] = tempArr[randomIndex];
+      tempArr[randomIndex] = temporaryValue;
     }
+    this.setState((state) => {
+      return {allQuestions : tempArr}
+    })
   }
 
   getTopQuestion(){
-    console.log(this.state.allQuestions);
     const current = this.state.allQuestions.pop();
     if(current){
       this.setState((state) => {
@@ -69,7 +67,12 @@ class Question extends React.Component {
 
   componentDidMount(){
     this.getQuestion();
-    console.log(this.state.question);
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (this.props.location.state.questionType !== prevProps.location.state.questionType) {
+      this.getQuestion();
+    }
   }
 
   flipCard(){
