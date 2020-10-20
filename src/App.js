@@ -5,12 +5,15 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import Question from './components/Question';
+import NavBar from './components/NavBar';
+
 import './App.css';
 
 
 function App() {
   return (
     <BrowserRouter>
+        <NavBar />
         <div>
           <Switch>
             <Route path="/" component={Home} exact/>

@@ -17,13 +17,23 @@ export default class Home extends React.Component{
           <h3 className="display-6">Choose a type of question below</h3>
           <Link to={{pathname:"/Questions", state: {questionType: "technical"}}} tabIndex="-1">
             <Button>
-
               Technical
             </Button>
           </Link>
-          <Link to={{pathname:"/Questions", state: {questionType: "behavioral"}}}>Behavioral</Link>
-          <Link to={{pathname:"/Questions", state: {questionType: "whiteboard"}}}>Whiteboard</Link>
-          <Link to={{pathname:"/Questions", state: {questionType: "traversal"}}}>Traversal</Link>
+          <Link to={{pathname:"/Questions", state: {questionType: "behavioral"}}}>            
+            <Button>
+              Behavioral
+            </Button>
+          </Link>
+          <Link to={{pathname:"/Questions", state: {questionType: "whiteboard"}}}>            
+            <Button>
+              Whiteboard
+            </Button></Link>
+          <Link to={{pathname:"/Questions", state: {questionType: "traversal"}}}>  
+            <Button>
+                Traversal
+            </Button>
+          </Link>
           {/* <a asp-page="/Questions/Technical" className="btn btn-dark">Technical</a>
           <a asp-page="/Questions/Behavioral" className="btn btn-dark">Behavioral</a>
           <a asp-page="/Questions/Whiteboard" className="btn btn-dark">Whiteboard</a>
