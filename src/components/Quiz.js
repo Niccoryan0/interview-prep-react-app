@@ -1,4 +1,47 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+// import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Typography from '@material-ui/core/Typography';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // '& .MuiTextField-root': {
+    //   margin: theme.spacing(1),
+    //   maxWidth: 345,
+    // },
+    // [theme.breakpoints.down("md")] : {
+    // maxWidth: 200 
+
+    // },
+    width: 600,
+  },
+
+  technical: {
+    width: 300
+  },
+
+  whiteboard: {
+    width:400
+  },
+
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  question: {
+    fontSize: 12,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+}));
+
 
 export default class Quiz extends React.Component{
   constructor(props){
@@ -54,9 +97,53 @@ export default class Quiz extends React.Component{
   }
   
   render(){
+    const classes = this.props;
     console.log(this.state)
     return(
-      <p>Quiz Stuff</p>
+      <FormControl>
+        <Box display="flex" flexDirection="row" flexWrap="wrap">
+          {this.state.technical.map((question, i) => (
+            <Card className={classes.technical} variant="outlined" >
+              <CardContent>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  Technical
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {question.question}
+                </Typography>
+                <TextField
+                  id="outlined-multiline-static"
+                  label={"Question " + (i+1)}
+                  multiline
+                  rows={6}
+                  placeholder="Answer Here"
+                  variant="outlined"
+                />
+              </CardContent>
+            </Card>
+          ))}
+          {this.state.whiteboard.map((question, i) => (
+            <Card className={classes.root} variant="outlined">
+              <CardContent>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  Whiteboard
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {question.question}
+                </Typography>
+                <TextField
+                  id="outlined-multiline-static"
+                  label={"Question " + (i+4)}
+                  multiline
+                  rows={6}
+                  placeholder="Answer Here"
+                  variant="outlined"
+                />
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      </FormControl>
     )
   }
 }

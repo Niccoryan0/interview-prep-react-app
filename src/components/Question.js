@@ -5,7 +5,7 @@ class Question extends React.Component {
     super(props);
     this.state = {
       allQuestion : [],
-      question : "",
+      question : "Retreiving questions, one moment.",
       answer : "",
       category : "",
       flipped : false,
