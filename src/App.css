@@ -1,38 +1,153 @@
-.App {
-  text-align: center;
+.all-container {
+  width: 100% !important;
+  min-height: 100%;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navSelected{
+  color:whitesmoke;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.body-container {
+  margin: 0 30px;
+}
+
+footer > a {
+  color: white;
+  transition: 0.3s;
+}
+
+  footer > a:hover {
+      color: gray;
   }
+
+footer {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+    footer > div {
+        margin: 0 15px;
+    }
+
+.card-container {
+  perspective: 700px;
+  -webkit-perspective: 700px;
+  margin: 30px auto;
+}
+
+.card-flip, .card-container {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: all 0.7s ease;
+}
+
+  .card-flip div {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform-style: preserve-3d;
+  }
+
+.back {
+  transform: rotateY(-180deg);
+}
+
+.flip {
+  transform: rotateY(180deg);
+}
+
+.card-flip {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  grid-template-areas: "frontAndBack";
+  transform-style: preserve-3d;
+  transition: all 0.7s ease;
+}
+
+.card {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  padding: 20px 30px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+  .add-form {
+      width: 35%;
+  }
+
+.front {
+  grid-area: frontAndBack;
+}
+
+.back {
+  grid-area: frontAndBack;
+  transform: rotateY(-180deg);
+}
+
+.card-container {
+  display: grid;
+  perspective: 700px;
+}
+
+.body-container > table {
+  background-color: rgba(0, 0, 0, 0.65);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.dash-link {
+  margin-right: 40px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  margin: 20px 0;
+}
+
+table {
+  padding: 10px 20px;
+}
+
+.click-flip-explanation{
+  font-size: 12px;
+  margin: 0 auto;
+}
+
+.home-header, .home-body{
+  background-color: rgba(0, 0, 0, 0.6);
+  min-width:250px;
+  border-radius: 4px;
+  padding: 10px 6px;
+  margin: 4% auto;
+}
+
+.home-header {
+  width: 250px;
+}
+
+.home-body {
+  min-width: 250px;
+  max-width: 525px;
+}
+
+.home-body > h3:first-child {
+  margin-bottom: 18px;
+}
+
+.home-body > a {
+  margin-bottom: 18px;
+}
+
+.new-question{
+  margin-bottom: 30px;
+}
+
+.register {
+  max-width: 500px;
 }
