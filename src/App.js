@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Question from './components/Question';
 import NavBar from './components/NavBar';
+import Quiz from './components/Quiz';
 
 import './App.css';
 
@@ -19,6 +20,8 @@ function App() {
             <Route path="/Login" component={Login}/>
             <Route path="/Register" component={Register}/>
             <Route path="/Questions" component={Question}/>
+            <Route path="/Quiz" component={Quiz}/>
+
             {/* <Route component={Error}/> */}
           </Switch>
         </div> 
