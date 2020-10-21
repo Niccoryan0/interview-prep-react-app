@@ -32,7 +32,8 @@ class Login extends React.Component{
     this.state = {
       username : "",
       password : "",
-      errorMessage: "",
+      confirmPassword: "",
+      errorMessage : "",
       persistent: false
     }
   }
@@ -41,6 +42,10 @@ class Login extends React.Component{
   validateLogin = () => {
     // Add additional features for stricter validation
     return this.state.username.length > 0 && this.state.password.length > 0;
+  }
+
+  validateConfirmPassword = () => {
+    return this.state.password === this.state.confirmPassword;
   }
 
   submitLogin = (e) => {
@@ -52,7 +57,7 @@ class Login extends React.Component{
       password : this.state.password,
       persistent : this.state.persistent
     }
-    fetch("https://interviewprepapp.azurewebsites.net/api/Account/Login", {
+    fetch("https://interviewprepapp.azurewebsites.net/api/Account/Register", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -66,12 +71,17 @@ class Login extends React.Component{
     .then(result => {
       if(result.jwt) {
         localStorage.setItem('token', result.jwt);
-        localStorage.setItem('role', result.role);
+        localStorage.setItem('role', '');
         this.props.history.push("/")
       }else{
+        let msg = "";
+        result.forEach(error => {
+          console.log(error.code)
+          msg += `${error.description}\n`
+        });
         this.setState((state) => {
-          return {errorMessage : "Invalid username or password"};
-        })
+          return {errorMessage : msg};
+        });
       }
     })
   }
@@ -88,6 +98,11 @@ class Login extends React.Component{
     })
   }
 
+  setConfirmPassword(password){
+    this.setState((state) => {
+      return {confirmPassword : password};
+    })
+  }
   setPersistence(persistence){
     this.setState((state) => {
       return {persistent : persistence};
@@ -130,6 +145,19 @@ class Login extends React.Component{
               onChange={e => this.setPassword(e.target.value)}
               autoComplete="current-password"
             />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
+              helperText={this.validateConfirmPassword() ? '' : 'Passwords do not match'}
+              onChange={e => this.setConfirmPassword(e.target.value)}
+              autoComplete="current-password"
+            />
             <FormControlLabel
               control={<Checkbox value="remember" onChange={e => this.setPersistence(e.target.checked)} color="primary" checked={this.state.persistent} />}
               label="Remember me"
@@ -139,6 +167,7 @@ class Login extends React.Component{
               fullWidth
               variant="contained"
               color="primary"
+              disabled={!this.validateLogin() || !this.validateConfirmPassword()}
               className={classes.submit}
             >
               Sign In
