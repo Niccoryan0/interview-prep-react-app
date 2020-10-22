@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Question from './components/Question';
 import NavBar from './components/NavBar';
 import Quiz from './components/Quiz';
+import Footer from './components/Footer';
 
 import './App.css';
 
@@ -25,6 +26,7 @@ function App() {
             {/* <Route component={Error}/> */}
           </Switch>
         </div> 
+        <Footer />
       </BrowserRouter>
   );
 }

@@ -7,6 +7,8 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
+import FancyButton from './FancyButton'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,8 +46,11 @@ export default class Quiz extends React.Component{
     this.state = {
       technical: [],
       whiteboard: [],
-      traversals: []
-    }
+      traversals: [],
+      answers: {q1:"", q2:"", q3:"", q4:"", q5:""}
+    };
+    this.submitQuiz = this.submitQuiz.bind(this)
+
   }
 
   shuffleQuestions(tempArr){
@@ -87,6 +92,36 @@ export default class Quiz extends React.Component{
     })
   }
 
+  handleAnswerChange({ target }) {
+    this.setState((state) => {
+      let answers = Object.assign({}, state.answers)
+      answers['q' + target.name] = target.value
+      return { answers }
+    });
+  }
+
+  submitQuiz(){
+    let url = 'https://interviewprepapp.azurewebsites.net/api/quiz';
+    fetch(url, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': "*",
+      },
+      body: JSON.stringify(this.state.answers)
+    }).then(res => res.json())
+    // .then(questions => {
+    //   if(questions){
+    //     questions = this.shuffleQuestions(questions);
+    //     this.setState((state) => {
+    //       questions = route === 'technical' ? questions.slice(0,3) : questions.slice(0,2) 
+    //       return { [route] : questions }
+    //     })
+    //   }
+    // })
+  }
+
   componentDidMount(){
     this.getQs();
   }
@@ -96,10 +131,10 @@ export default class Quiz extends React.Component{
     console.log(classes)
     console.log(this.state)
     return(
-      <FormControl>
-        <Box display="flex" flexDirection="row" flexWrap="wrap">
+      <div>
+        <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="space-between" padding="5%">
           {this.state.technical.map((question, i) => (
-            <Card className={classes.technical} variant="outlined" >
+            <Card className={classes.technical} variant="outlined" style={{width:400, marginBottom:20}} >
               <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Technical
@@ -110,16 +145,21 @@ export default class Quiz extends React.Component{
                 <TextField
                   id="outlined-multiline-static"
                   label={"Question " + (i+1)}
+                  name={i}
                   multiline
                   rows={6}
                   placeholder="Answer Here"
+                  value={ this.state.answers['q' + i] }
+                  onChange={this.handleAnswerChange}
                   variant="outlined"
                 />
               </CardContent>
             </Card>
           ))}
+          </Box>
+          <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="space-evenly" >
           {this.state.whiteboard.map((question, i) => (
-            <Card className={classes.root} variant="outlined">
+            <Card className={classes.root} variant="outlined" style={{width:400, marginBottom:40, display:"flex", alignContent:"space-between"}}>
               <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Whiteboard
@@ -130,16 +170,22 @@ export default class Quiz extends React.Component{
                 <TextField
                   id="outlined-multiline-static"
                   label={"Question " + (i+4)}
+                  name = {(i+3)}
                   multiline
                   rows={6}
                   placeholder="Answer Here"
+                  value={ this.state.answers['q' + (i+3)] }
+                  onChange={this.handleAnswerChange}
                   variant="outlined"
                 />
               </CardContent>
             </Card>
           ))}
-        </Box>
-      </FormControl>
+          </Box>
+          <FancyButton onClick={this.submitQuiz} style={{marginBottom:20}}>
+              Submit Quiz
+          </FancyButton>    
+          </div>
     )
   }
 }
