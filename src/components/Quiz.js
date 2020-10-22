@@ -50,7 +50,6 @@ export default class Quiz extends React.Component{
       answers: {q1:"", q2:"", q3:"", q4:"", q5:""}
     };
     this.submitQuiz = this.submitQuiz.bind(this)
-
   }
 
   shuffleQuestions(tempArr){
@@ -111,15 +110,9 @@ export default class Quiz extends React.Component{
       },
       body: JSON.stringify(this.state.answers)
     }).then(res => res.json())
-    // .then(questions => {
-    //   if(questions){
-    //     questions = this.shuffleQuestions(questions);
-    //     this.setState((state) => {
-    //       questions = route === 'technical' ? questions.slice(0,3) : questions.slice(0,2) 
-    //       return { [route] : questions }
-    //     })
-    //   }
-    // })
+    .then(result => {
+      console.log(result);
+    })
   }
 
   componentDidMount(){
