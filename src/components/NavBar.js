@@ -54,7 +54,7 @@ export default class NavBar extends React.Component{
 
         {localStorage.getItem('token') &&
           <Nav className="justify-content-end" style={{marginRight:"10px"}}>
-            <Nav.Link activeClassName="navSelected" as={NavLink} to='/'>Take A Quiz</Nav.Link>
+            <Nav.Link activeClassName="navSelected" as={NavLink} to='/Quiz'>Take A Quiz</Nav.Link>
             <NavDropdown title="Dashboard" alignRight>
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

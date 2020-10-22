@@ -16,6 +16,17 @@ const MyButton = styled(Button)({
 
 export default class Home extends React.Component{ 
 
+  componentDidMount(){
+    fetch('https://interviewprepapp.azurewebsites.net/api/ping', {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': "*",
+      }
+    });
+  }
+
   render(){
     return (
       <div>

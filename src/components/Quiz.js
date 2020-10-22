@@ -10,14 +10,13 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // '& .MuiTextField-root': {
-    //   margin: theme.spacing(1),
-    //   maxWidth: 345,
-    // },
-    // [theme.breakpoints.down("md")] : {
-    // maxWidth: 200 
-
-    // },
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      maxWidth: 345,
+    },
+    [theme.breakpoints.down("md")] : {
+    maxWidth: 200 
+    },
     width: 600,
   },
 
@@ -29,14 +28,10 @@ const useStyles = makeStyles((theme) => ({
     width:400
   },
 
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   question: {
     fontSize: 12,
   },
+
   pos: {
     marginBottom: 12,
   },
@@ -98,6 +93,7 @@ export default class Quiz extends React.Component{
   
   render(){
     const classes = this.props;
+    console.log(classes)
     console.log(this.state)
     return(
       <FormControl>
