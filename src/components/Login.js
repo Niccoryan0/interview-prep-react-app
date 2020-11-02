@@ -52,6 +52,8 @@ class Login extends React.Component{
       password : this.state.password,
       persistent : this.state.persistent
     }
+
+
     fetch("https://interviewprepapp.azurewebsites.net/api/Account/Login", {
       method: "POST",
       headers: {
@@ -65,6 +67,7 @@ class Login extends React.Component{
     .then(res => res.json())
     .then(result => {
       if(result.jwt) {
+        console.log(result)
         localStorage.setItem('token', result.jwt);
         localStorage.setItem('role', result.role);
         this.props.history.push("/")
