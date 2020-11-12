@@ -9,18 +9,19 @@ class Comment extends React.Component{
   render(){
     return(
       <div className="comment panel panel-default">
-        <img src={this.props.comment.avatar}></img>
-        <div className="panel-heading">
-          <h4>{this.props.comment.username}</h4>
+        <div id="userInfo">
+          <img src={this.props.comment.avatar}></img>
+          <div className="panel-heading">
+            <h4>{this.props.comment.username}</h4>
+          </div>
         </div>
         <div className="panel-body">
-          {this.props.comment.comment}
+          <p>{this.props.comment.comment}</p>
+          <p>{this.props.comment.upvotes - this.props.comment.downvotes}</p>
         </div>
       </div>
     )
   }
 }
-
-(sortSwitch === "title" ? (a.title > b.title ? 1 : -1) : (a.horns > b.horns ? 1 : -1))
 
 export default Comment;
