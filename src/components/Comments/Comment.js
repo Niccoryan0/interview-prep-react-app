@@ -45,6 +45,7 @@ const Comment = ({ comments }) => {
                 }
                 secondary={
                   <>
+                    {`${comment.comment} - `}
                     <Typography
                       component="span"
                       variant="body2"
@@ -53,7 +54,6 @@ const Comment = ({ comments }) => {
                     >
                       {comment.createdDate}
                     </Typography>
-                    {` - ${comment.comment}`}
                   </>
                 }
               />
