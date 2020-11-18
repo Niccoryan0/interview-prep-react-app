@@ -3,8 +3,7 @@ import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-export default class NavBar extends React.Component{
-  render(){
+const NavBar = () => {
     return(
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Interview Prep</Navbar.Brand>
@@ -35,5 +34,4 @@ export default class NavBar extends React.Component{
         }
       </Navbar>
     )
-  }
 }
