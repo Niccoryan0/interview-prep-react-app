@@ -3,45 +3,7 @@ import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-export default class NavBar extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      username : "",
-      password : "",
-      errorMessage: "",
-      persistent: false
-    }
-  }
-  // refresh(){
-  //   location.reload();
-  // }
-
-  validateLogin = () => {
-    // Add additional features for stricter validation
-    return this.state.username.length > 0 && this.state.password.length > 0;
-  }
-
-  setUsername(name){
-    this.setState((state) => {
-      return {username : name};
-    })
-  }
-
-  setPassword(password){
-    this.setState((state) => {
-      return {password : password};
-    })
-  }
-
-  setPersistence(persistence){
-    this.setState((state) => {
-      return {persistent : persistence};
-    })
-  }
-
-
-  render(){
+const NavBar = () => {
     return(
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Interview Prep</Navbar.Brand>
@@ -54,7 +16,7 @@ export default class NavBar extends React.Component{
 
         {localStorage.getItem('token') &&
           <Nav className="justify-content-end" style={{marginRight:"10px"}}>
-            <Nav.Link activeClassName="navSelected" as={NavLink} to='/'>Take A Quiz</Nav.Link>
+            <Nav.Link activeClassName="navSelected" as={NavLink} to='/Quiz'>Take A Quiz</Nav.Link>
             <NavDropdown title="Dashboard" alignRight>
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -72,5 +34,6 @@ export default class NavBar extends React.Component{
         }
       </Navbar>
     )
-  }
 }
+
+export default NavBar;

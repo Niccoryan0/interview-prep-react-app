@@ -6,6 +6,8 @@ import Register from './components/Register';
 import Question from './components/Question';
 import NavBar from './components/NavBar';
 import Quiz from './components/Quiz';
+import Footer from './components/Footer';
+import Quizzes from './components/Comments/Quizzes'
 
 import './App.css';
 
@@ -21,10 +23,11 @@ function App() {
             <Route path="/Register" component={Register}/>
             <Route path="/Questions" component={Question}/>
             <Route path="/Quiz" component={Quiz}/>
-
+            <Route path="/Forum" component={Quizzes}/>
             {/* <Route component={Error}/> */}
           </Switch>
         </div> 
+        <Footer />
       </BrowserRouter>
   );
 }
