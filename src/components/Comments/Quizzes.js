@@ -23,9 +23,9 @@ const getQuizzes = () =>{
   })
 }
 
-const [selectedQuiz, selectQuiz] = React.useState();
-const [quizzes, setQuizzes] = React.useState();
 const Quizzes = () =>{
+  const [selectedQuiz, selectQuiz] = React.useState();
+  const [quizzes, setQuizzes] = React.useState();
 
   const columns = [
     { field: 'date', headerName: 'ID', width: '35%' },
