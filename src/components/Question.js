@@ -2,18 +2,6 @@ import React, {useState, useEffect, useRef, useCallback} from 'react';
 import fetchData from './Functions/getData'
 
 
-
-
-
-
-async function getQuestions(questionType) {
-  const questions = await fetchData(questionType);
-  if(questions){
-    questions = shuffleQuestions(questions);
-  }
-  return questions;
-}
-
 const shuffleQuestions = (tempArr) => {
   // Adapted from : https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   var currentIndex = tempArr.length, temporaryValue, randomIndex;
@@ -37,13 +25,13 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const Question = () => {
+const Question = (props) => {
   const [allQuestions, setQuestions] = useState([]);
   const [question, setQuestion] = useState("Retreiving questions, one moment.");
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("");
   const [flipped, setFlipped] = useState(false);
-  const [questionType, setQuestionType] = useState(false);
+  const [questionType, setQuestionType] = useState(props.questionType || "technical");
   const switchCards = useCallback(() => {
     const top = allQuestions.pop();
     setQuestion(top.question);
@@ -52,14 +40,29 @@ const Question = () => {
     setFlipped(false);
     setQuestions(allQuestions);
   }, []);
-  useEffect(() => {
-    const questions = getQuestions(questionType);
-    const top = questions.pop();
-    setQuestion(top.question);
-    setAnswer(top.answer);
-    setCategory(top.category);
-    setFlipped(false);
-    setQuestions(questions);
+  useEffect(async () => {
+    console.log(questionType)
+    let url = 'https://interviewprepapp.azurewebsites.net/api/' + props.questionType;
+    fetch(url, {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': "*",
+      }
+    }).then(res => res.json())
+    .then(questions => {
+      if(questions){
+        questions = shuffleQuestions(questions);
+      }
+      console.log(questions);
+      const top = questions.pop();
+      setQuestion(top.question);
+      setAnswer(top.answer);
+      setCategory(top.category);
+      setFlipped(false);
+      setQuestions(questions);
+    })
   }, []);
   // useEffect(() => {
   //   const previous = usePrevious(questionType)

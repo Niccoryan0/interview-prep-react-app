@@ -1,10 +1,10 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
-const viewQuiz = (rowData) =>{
-  console.log(rowData);
-  selectQuiz(rowData);
-}
+// const viewQuiz = (rowData) =>{
+//   console.log(rowData);
+//   selectQuiz(rowData);
+// }
 
 const getQuizzes = () =>{
   let url = 'https://interviewprepapp.azurewebsites.net/api/quiz/20';
@@ -17,9 +17,7 @@ const getQuizzes = () =>{
     }
   }).then(res => res.json())
   .then(quizzes => {
-    if(quizzes){
-      setQuizzes(quizzes)
-    }
+    return quizzes;
   })
 }
 
@@ -33,17 +31,17 @@ const Quizzes = () =>{
     { field: 'currentScore', headerName: 'Current Score', width: '30%' },
   ];
   const options = {
-    onRowClick: rowData => viewQuiz(rowData)
+    onRowClick: rowData => console.log(rowData)
   };
   React.useEffect(() => {
-    getQuizzes();
+    setQuizzes(getQuizzes());
   }, []);
   const rows = quizzes.map(quiz => ({ date: quiz.createdDate, username: quiz.username, currentScore: `${quiz.upvotes/(quiz.upvotes + quiz.downvotes)}%` }));
   return (
     <div style={{ height: 400, width: '100%' }}>
-      {selectedQuiz
-        ? <DataGrid rows={rows} columns={columns} pageSize={rows.length > 10 ? 10 : rows.length} options={options} />
-        : viewQuiz()}
+      {/* {selectedQuiz ?  */}
+      <DataGrid rows={rows} columns={columns} pageSize={rows.length > 10 ? 10 : rows.length} options={options} />
+        {/* : viewQuiz()} */}
     </div>
   );
 }

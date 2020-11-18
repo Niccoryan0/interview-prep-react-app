@@ -28,16 +28,16 @@ export default class Home extends React.Component{
   
           <main className="text-center card home-body">
             <h3 className="display-6">Choose a type of question below</h3>
-            <FancyButton variant="contained" color='secondary'  to={{pathname:"/Questions", state: {questionType: "technical"}}} component={Link}>
+            <FancyButton variant="contained" color='secondary'  to={{pathname:"/Questions", props: {questionType: "technical"}}} component={Link}>
               Technical
             </FancyButton>
-            <FancyButton variant="contained" color='secondary'  to={{pathname:"/Questions", state: {questionType: "behavioral"}}} component={Link}>
+            <FancyButton variant="contained" color='secondary'  to={{pathname:"/Questions", props: {questionType: "behavioral"}}} component={Link}>
               Behavioral
             </FancyButton>
-            <FancyButton variant="contained" color='secondary' component={Link} to={{pathname:"/Questions", state: {questionType: "whiteboard"}}}>
+            <FancyButton variant="contained" color='secondary' component={Link} to={{pathname:"/Questions", props: {questionType: "whiteboard"}}}>
               Whiteboard
             </FancyButton>
-            <FancyButton variant="contained" color='secondary'  to={{pathname:"/Questions", state: {questionType: "traversals"}}} component={Link}>
+            <FancyButton variant="contained" color='secondary'  to={{pathname:"/Questions", props: {questionType: "traversals"}}} component={Link}>
               Traversals
             </FancyButton>
             {/* </Link> */}
