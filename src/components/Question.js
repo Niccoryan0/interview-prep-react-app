@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import fetchData from './Functions/getData'
 
 
@@ -38,20 +38,20 @@ function usePrevious(value) {
 }
 
 const Question = () => {
-  function switchCards(){
-    const top = questions.pop();
-    setQuestion(top.question);
-    setAnswer(top.answer);
-    setCategory(top.category);
-    setFlipped(false);
-    setQuestions(questions);
-  }
   const [allQuestions, setQuestions] = useState([]);
   const [question, setQuestion] = useState("Retreiving questions, one moment.");
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("");
   const [flipped, setFlipped] = useState(false);
   const [questionType, setQuestionType] = useState(false);
+  const switchCards = useCallback(() => {
+    const top = allQuestions.pop();
+    setQuestion(top.question);
+    setAnswer(top.answer);
+    setCategory(top.category);
+    setFlipped(false);
+    setQuestions(allQuestions);
+  }, []);
   useEffect(() => {
     const questions = getQuestions(questionType);
     const top = questions.pop();
@@ -61,13 +61,12 @@ const Question = () => {
     setFlipped(false);
     setQuestions(questions);
   }, []);
-  useEffect(() => {
-    const previous = usePrevious(questionType)
-    if (questionType !== previous) {
-      getQuestion();
-    }
-    switchQuestions();
-  });
+  // useEffect(() => {
+  //   const previous = usePrevious(questionType)
+  //   if (questionType !== previous) {
+  //     getQuestions();
+  //   }
+  // });
   return (
     <div className="body-container">
       <button className="btn btn-dark" onClick={switchCards}>Get New Question</button>
