@@ -1,4 +1,4 @@
-async const fetchData = (route) => {
+async function fetchData(route) {
   let url = 'https://interviewprepapp.azurewebsites.net/api/' + route;
   fetch(url, {
     method: "GET",
